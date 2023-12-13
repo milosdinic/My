@@ -112,24 +112,26 @@ if os.path.exists('port_list_clean.txt'):
     os.remove('port_list_clean.txt')
 
 
-data = data2 = "";
+data2 = ""
+data1 = ""
 
-with open('wire_list.txt') as f1:
-    data = f1.read()
 
+with open('wire_list.txt') as file:
+    data1 = file.read()
+ 
 with open('instance.txt') as f2:
     data2 = f2.read()
  
-data += "\n"
-data += "\n"
-data += "\n"
-data += "\n"
-data += "("
-data += "\n"
-data += data2
+data1 += "\n"
+data1 += "\n"
+data1 += "\n"
+data1 += "\n"
+data1 += "("
+data1 += "\n"
+data1 += data2
 
-print(data)
+# print(data)
  
 with open ('module_instance.txt', 'w') as f:
-    f.write(data)
+    f.write(data1)
 
