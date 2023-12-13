@@ -1,0 +1,51 @@
+module dma_control
+#(
+    CHANNEL_NUM = 2'd0
+)
+(
+input   wire                       axi_clk_i,
+input   wire                       axi_rstn_i,
+//REQUEST & CONTROL
+input wire                         cpu_request_i,
+input wire [1:0]                   channel_sel_i,
+input wire                         dest_addr_dec_i,
+input wire                         src_addr_dec_i,
+input wire                         read_req_i,
+input wire                         write_req_i,
+//SOURCE
+input wire [31:0]                  base_saddr_l_i,
+input wire [31:0]                  base_saddr_h_i,
+input wire [31:0]                  base_scnt_i,
+output wire [31:0]                 curr_saddr_o,
+output wire                        curr_saddr_en_o,
+output wire [31:0]                 curr_scnt_o,
+output wire                        curr_scnt_en_o,
+//DESTINATION
+input  wire [31:0]                 base_daddr_l_i,
+input  wire [31:0]                 base_daddr_h_i,
+input  wire [31:0]                 base_dcnt_i,
+output wire [31:0]                 curr_daddr_o,
+output wire                        curr_daddr_en_o,
+output wire [31:0]                 curr_dcnt_o,
+output wire                        curr_dcnt_en_o,
+//AXI
+output  wire                       start_read_o,
+output  wire  [63:0]               reg_araddr_o,
+output  wire  [31:0]               read_cnt_o,
+
+output  wire                       start_write_o,
+output  wire                       w_last_o,
+output  wire                       w_user_o,
+output  wire  [63:0]               reg_awaddr_o,
+output  wire  [31:0]               write_cnt_o,
+output  wire                       w_req_o,
+output  wire                       req_clr_o,
+
+output  wire                       CH0_TC_i_o,
+output  wire                       CH0_TC_en_o,
+output  wire                       CH0_REQ_o,
+
+input   wire                       fifo_wdata_rd_en_i,
+input   wire                       rx_fifo_empty_i,
+input   wire                       fifo_rdata_wr_en_i
+);
