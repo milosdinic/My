@@ -117,7 +117,6 @@ with open('port_list_filter.txt','r') as f , open('port_list_clean.txt', 'w') as
        # newf.write(last_element)
         last_element = line.rsplit()
         last = last_element[-1]
-        print(last)
         newf.write(last)
         newf.write('\n')
 ######################   CLEAN   ######################
@@ -131,7 +130,6 @@ with open('port_list_clean.txt','r') as oldfile , open('clean.txt', 'w') as newf
         substituted_phrase = substituted_phrase.replace("_i", "_s" )
         substituted_phrase = substituted_phrase.replace("_o", "_s" )
         newfile.write(substituted_phrase)
-
 #######################################################
 
 with open("clean.txt") as xh:
@@ -144,8 +142,8 @@ with open("clean.txt") as xh:
         line = ylines[i].strip() + '\t\t\t( ' + xlines[i]
         zh.write(line)
 
-#if os.path.exists('port_list_filter.txt'):
-#    os.remove('port_list_filter.txt')
+if os.path.exists('port_list_filter.txt'):
+    os.remove('port_list_filter.txt')
 
 with open('port_list_prep.txt') as f:
     lines = f.read().splitlines()
@@ -164,21 +162,21 @@ data[count] = data[count].replace("),", " ) );" )
 with open('instance.txt', 'w') as f: 
     f.writelines(data)
 
-#if os.path.exists('port_list_prep.txt'):
-#    os.remove('port_list_prep.txt')
-#if os.path.exists('port_list_ready.txt'):
-#    os.remove('port_list_ready.txt')
-#if os.path.exists('clean.txt'):
-#    os.remove('clean.txt')
-#if os.path.exists('port_list_clean.txt'):
-#    os.remove('port_list_clean.txt')
+if os.path.exists('port_list_prep.txt'):
+    os.remove('port_list_prep.txt')
+if os.path.exists('port_list_ready.txt'):
+    os.remove('port_list_ready.txt')
+if os.path.exists('clean.txt'):
+    os.remove('clean.txt')
+if os.path.exists('port_list_clean.txt'):
+    os.remove('port_list_clean.txt')
 
 with open('instance.txt','r') as f , open('instance_space.txt', 'w') as newf:
     while True:
         line = f.readline()
         if not line:
            break
-        line = '        ' + line
+        line = '        .' + line
         newf.write(line)
 
 data3 = ""
@@ -219,5 +217,7 @@ if os.path.exists('module_name_n.txt'):
     os.remove('module_name_n.txt')
 if os.path.exists('wire_list.txt'):
     os.remove('wire_list.txt')
+if os.path.exists('instance_space.txt'):
+    os.remove('instance_space.txt')
 if os.path.exists('instance.txt'):
     os.remove('instance.txt')
