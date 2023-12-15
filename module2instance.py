@@ -76,7 +76,16 @@ with open('wire_list_new.txt', 'r') as f:
     with open('wire_list.txt', 'w') as w:
         w.write(data[:-1])
 
-file = open('wire_list.txt', 'a')
+right_words = ['wire']
+with open('wire_list.txt') as oldfile, open('wire_lists.txt', 'w') as newfile:
+    for line in oldfile:
+        if not any(bad_word in line for bad_word in right_words):
+            line = 'wire      ' + line
+            newfile.write(line)
+        if any(bad_word in line for bad_word in right_words):
+            newfile.write(line)
+
+file = open('wire_lists.txt', 'a')
 file.write(';')
 
 #######################################################
@@ -256,7 +265,7 @@ with open('module_name.txt') as file:
 with open('module_name_instance.txt') as file:
     data4 = file.read()
 
-with open('wire_list.txt') as file:
+with open('wire_lists.txt') as file:
     data1 = file.read()
  
 with open('instance.txt') as f2:
@@ -300,6 +309,8 @@ if os.path.exists('wire_list1.txt'):
     os.remove('wire_list1.txt')
 if os.path.exists('wire_list.txt'):
     os.remove('wire_list.txt')
+if os.path.exists('wire_lists.txt'):
+    os.remove('wire_lists.txt')
 if os.path.exists('wire_list_new.txt'):
     os.remove('wire_list_new.txt')
 if os.path.exists('instance.txt'):
