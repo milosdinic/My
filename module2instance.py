@@ -88,6 +88,84 @@ with open('wire_list.txt') as oldfile, open('wire_lists.txt', 'w') as newfile:
 file = open('wire_lists.txt', 'a')
 file.write(';')
 
+
+
+
+
+
+################ FORMAT WIRE 
+with open('wire_lists.txt','r') as oldfile , open('wire_lists1.txt', 'w') as newfile:
+    while True:
+        line = oldfile.readline()
+        if not line:
+           break
+        last_element = line.rsplit(delimiter, 1)[-1]
+        newfile.write(last_element)
+
+with open('wire_lists.txt','r') as oldfile , open('wire_lists_name.txt', 'w') as newfile:
+    while True:
+        line = oldfile.readline()
+        if not line:
+           break
+        newline = line.split()
+        new = newline.reverse()
+        newfile.write(newline[0])
+        newfile.write('\n')
+
+with open('wire_lists.txt','r') as oldfile , open('wire_lists_size.txt', 'w') as newfile:
+    while True:
+        line = oldfile.readline()
+        if not line:
+           break
+        newline = line.split()
+        new = newline.reverse()
+        newfile.write(newline[1])
+        newfile.write('\n')
+
+
+right_words = ['wire']
+with open('wire_lists_size.txt') as oldfile, open('wire_lists_size_last.txt', 'w') as newfile:
+    for line in oldfile:
+        if any(bad_word in line for bad_word in right_words):
+            newfile.write(line)
+        if not any(bad_word in line for bad_word in right_words):
+            line = 'wire ' + line
+            newfile.write(line)
+
+
+data5 = ""
+with open ('wire_lists_size_last.txt') as f:
+    data5 = f.read()
+
+maxwireLen = len(max(open('wire_lists_size_last.txt').readlines(), key=len))
+data5 = ""
+
+with open('wire_lists_size_last.txt') as f:
+    port_lines = f.read().splitlines()
+with open('wire_lists_size_uh.txt', 'w') as newf:
+    for line in port_lines:
+        Len = len(line)
+        print(line + " "*(2*maxwireLen+2-Len) + '!!', file=newf)
+data5 = ""
+
+with open("wire_lists_name.txt") as xh:
+  with open('wire_lists_size_uh.txt') as yh:
+    with open("wire_lists_name_uh1.txt","w") as zh:
+      xlines = xh.readlines()
+      ylines = yh.readlines()
+      for i in range(len(xlines)):
+        line = ylines[i].strip() + xlines[i]
+        line = line.replace("!!", "" )
+        zh.write(line)
+
+with open('wire_lists_name_uh1.txt', 'r') as f:
+    data = f.read()
+    with open('wire_lists_name_uh2.txt', 'w') as w:
+        w.write(data[:-1])
+
+file = open('wire_lists_name_uh2.txt', 'a')
+file.write(';')
+
 #######################################################
 with open('port_list_filter.txt','r') as f , open('port_list_clean.txt', 'w') as newf:
     while True:
@@ -265,7 +343,7 @@ with open('module_name.txt') as file:
 with open('module_name_instance.txt') as file:
     data4 = file.read()
 
-with open('wire_lists.txt') as file:
+with open('wire_lists_name_uh2.txt') as file:
     data1 = file.read()
  
 with open('instance.txt') as f2:
@@ -292,7 +370,7 @@ data1 = ""
 
 
 
-########## REMOVE ALL THE MESS ###########
+########## REMOVE ALL THE MESS :D ########### 
 if os.path.exists('port_list_filter.txt'):
     os.remove('port_list_filter.txt')
 if os.path.exists('port_list_clean.txt'):
@@ -309,8 +387,8 @@ if os.path.exists('wire_list1.txt'):
     os.remove('wire_list1.txt')
 if os.path.exists('wire_list.txt'):
     os.remove('wire_list.txt')
-if os.path.exists('wire_lists.txt'):
-    os.remove('wire_lists.txt')
+#if os.path.exists('wire_lists.txt'):
+#    os.remove('wire_lists.txt')
 if os.path.exists('wire_list_new.txt'):
     os.remove('wire_list_new.txt')
 if os.path.exists('instance.txt'):
@@ -337,3 +415,25 @@ if os.path.exists('params4.txt'):
     os.remove('params4.txt')
 if os.path.exists('params5.txt'):
     os.remove('params5.txt')
+if os.path.exists('parameters.txt'):
+    os.remove('parameters.txt')
+if os.path.exists('wire_lists.txt'):
+    os.remove('wire_lists.txt')
+if os.path.exists('wire_lists1.txt'):
+    os.remove('wire_lists1.txt')
+if os.path.exists('wire_lists2.txt'):
+    os.remove('wire_lists2.txt')
+if os.path.exists('wire_lists_size.txt'):
+    os.remove('wire_lists_size.txt')
+if os.path.exists('wire_lists_size_last.txt'):
+    os.remove('wire_lists_size_last.txt')
+if os.path.exists('wire_lists_size_uh.txt'):
+    os.remove('wire_lists_size_uh.txt')
+if os.path.exists('wire_lists_name.txt'):
+    os.remove('wire_lists_name.txt')
+if os.path.exists('wire_lists_name_uh.txt'):
+    os.remove('wire_lists_name_uh.txt')
+if os.path.exists('wire_lists_name_uh1.txt'):
+    os.remove('wire_lists_name_uh1.txt')
+if os.path.exists('wire_lists_name_uh2.txt'):
+    os.remove('wire_lists_name_uh2.txt')
