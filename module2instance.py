@@ -79,10 +79,10 @@ with open('wire_list_new.txt', 'r') as f:
 right_words = ['wire']
 with open('wire_list.txt') as oldfile, open('wire_lists.txt', 'w') as newfile:
     for line in oldfile:
+        if any(bad_word in line for bad_word in right_words):
+            newfile.write(line)
         if not any(bad_word in line for bad_word in right_words):
             line = 'wire      ' + line
-            newfile.write(line)
-        if any(bad_word in line for bad_word in right_words):
             newfile.write(line)
 
 file = open('wire_lists.txt', 'a')
