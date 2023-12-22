@@ -20,9 +20,10 @@ with open('module.txt','r') as oldfile , open('module_name.txt', 'w') as newfile
         line = oldfile.readline()
         if not line:
            break
+        line = line.replace(" ", "" )
         last_element = line.rsplit(delimiter, 1)[-1]
-        substituted_phrase = last_element.replace("module", "" )
         substituted_phrase = last_element.replace("endmodule", "" )
+        substituted_phrase = substituted_phrase.replace("module", "" )
         substituted_phrase = substituted_phrase.replace("(", "" )
         substituted_phrase = substituted_phrase.replace("#(", "" )
         newfile.write(substituted_phrase)
@@ -90,9 +91,6 @@ file.write(';')
 
 
 
-
-
-
 ################ FORMAT WIRE 
 with open('wire_lists.txt','r') as oldfile , open('wire_lists1.txt', 'w') as newfile:
     while True:
@@ -118,13 +116,33 @@ with open('wire_lists.txt','r') as oldfile , open('wire_lists_size.txt', 'w') as
         if not line:
            break
         newline = line.split()
-        new = newline.reverse()
         newfile.write(newline[1])
         newfile.write('\n')
 
+right_words = ['[', ']']
+with open('wire_lists.txt') as oldfile, open('test.txt', 'w') as newfile:
+    for line in oldfile:
+        if any(bad_word in line for bad_word in right_words):
+            newfile.write(line)
+        if not any(bad_word in line for bad_word in right_words):
+            newfile.write('wire')
+            newfile.write('\n')
+
+right_words = ['[']
+with open('test.txt','r') as f , open('test1.txt', 'w') as newf:
+    while True:
+        line = f.readline()
+        if not line:
+           break
+        if any(bad_word in line for bad_word in right_words):
+            x = line.partition(']')
+            line = x[0] + ']\n'
+            newf.write(line)
+        if not any(bad_word in line for bad_word in right_words):
+            newf.write(line)
 
 right_words = ['wire']
-with open('wire_lists_size.txt') as oldfile, open('wire_lists_size_last.txt', 'w') as newfile:
+with open('test1.txt') as oldfile, open('wire_lists_size_last.txt', 'w') as newfile:
     for line in oldfile:
         if any(bad_word in line for bad_word in right_words):
             newfile.write(line)
@@ -249,9 +267,9 @@ with open(filename, 'r') as f, open ('params.txt', 'w') as nf:
     for line in f:
         if '#(' in line:
             for line in f:
-                nf.write(line)
                 if ')' in line:
                   break
+                nf.write(line)
 
 with open('params.txt','r') as oldfile , open('params1.txt', 'w') as newfile:
     while True:
@@ -287,9 +305,10 @@ if os.stat("params2.txt").st_size == 0:
 data5 = ""
 with open ('params3.txt') as f:
     data5 = f.read()
+if os.stat("params3.txt").st_size != 0:
+  maxparamLen = len(max(open('params3.txt').readlines(), key=len))
+  minparamLen = len(min(open('params3.txt').readlines(), key=len))
 
-maxparamLen = len(max(open('params3.txt').readlines(), key=len))
-minparamLen = len(min(open('params3.txt').readlines(), key=len))
 data5 = ""
 
 with open('params3.txt') as f:
@@ -304,9 +323,10 @@ with open('params4.txt', 'r') as f:
     for count, line in enumerate(f):
         pass
 
-with open('params4.txt', 'r') as f: 
-    data = f.readlines() 
-data[count] = data[count].replace("),", ") )" )
+if os.stat("params4.txt").st_size != 0:
+   with open('params4.txt', 'r') as f: 
+      data = f.readlines() 
+   data[count] = data[count].replace("),", ") )" )
   
 with open('params5.txt', 'w') as f: 
     f.writelines(data)
@@ -437,3 +457,7 @@ if os.path.exists('wire_lists_name_uh1.txt'):
     os.remove('wire_lists_name_uh1.txt')
 if os.path.exists('wire_lists_name_uh2.txt'):
     os.remove('wire_lists_name_uh2.txt')
+if os.path.exists('test.txt'):
+    os.remove('test.txt')
+if os.path.exists('test1.txt'):
+    os.remove('test1.txt')
